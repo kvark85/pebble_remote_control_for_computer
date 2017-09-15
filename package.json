@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/kvark85/pebble_rembble_control_for_computer/issues"
   },
-  "homepage": "https://github.com/kvark85/pebble_rembble_control_for_computer#readme"
+  "homepage": "https://github.com/kvark85/pebble_rembble_control_for_computer#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "robotjs": "^0.4.7"
+  }
 }
