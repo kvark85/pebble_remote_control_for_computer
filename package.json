@@ -1,0 +1,24 @@
+{
+  "name": "pebble_rembble_control_for_computer",
+  "version": "1.0.0",
+  "description": "Pebble as a control panel for the computer. Back-end node, express.",
+  "main": "backEndRemote.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kvark85/pebble_rembble_control_for_computer.git"
+  },
+  "keywords": [
+    "pebble",
+    "remote",
+    "computer"
+  ],
+  "author": "kvark85",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kvark85/pebble_rembble_control_for_computer/issues"
+  },
+  "homepage": "https://github.com/kvark85/pebble_rembble_control_for_computer#readme"
+}
