@@ -2,19 +2,18 @@ var express = require('express');
 var robot = require("robotjs");
 var app = express();
 
-app.get('/control', function (req, res) {
-    res.json({
-        comand: 'this is control',
-        ansver: 'ok'
-    });
+app.get('/control/:command/', function (req, res) {
+    var command = req.params.command;
+    //console.log(`Comand is ${command}`);
+    robot.keyTap(command);
+    res.json({comand: `this is ${command}`,answer: `ok`});
 });
 
-app.get('/volume/mute', function (req, res) {
-    robot.keyTap("audio_mute");
-    res.json({
-        comand: 'mute volume',
-        ansver: 'ok'
-    });
+app.get('/volume/:command', function (req, res) {
+    var command = req.params.command;
+    //console.log(`Comand is ${command}`);
+	robot.keyTap(command);
+	res.json({comand: `this is ${command}`,answer: `ok`});
 });
 
 app.listen(3000, function () {
