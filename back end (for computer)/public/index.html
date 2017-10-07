@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Control</title>
   <link rel="stylesheet" href="/css/semantic.min.css">
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/modernizr-custom.js"></script>
 </head>
 <body>
   <h1>Control</h1>
@@ -60,17 +60,46 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
-    $('.js-button').click(function(event) {
-        const $result = $('#result');
+    const STARTEVENTTYPE = Modernizr.touchevents === true ? 'touchstart' : 'mousedown',
+          ENDEVENTTYPE = Modernizr.touchevents === true ? 'touchend' : 'mouseup',
+          REPEATPERIOD = 250;
+
+    let isButPressed = false;
+        currentComand = '';
+
+    let helper = function() {
+        if(isButPressed) {
+            setTimeout(function() {
+                if (isButPressed) {
+                    $.ajax({url: currentComand}).done(function (data) {
+                        helper();
+                    });
+                }
+            }, REPEATPERIOD);
+        }
+    }
+
+    $('.js-button').on(STARTEVENTTYPE, function(event) {
         event.preventDefault();
+        const $result = $('#result');
+        isButPressed = true;
+        currentComand = 'http://simplenotes.ddns.net:3000/' + $(event.target).data('href');
 
         $.ajax({ cache: false,
-            url: 'http://simplenotes.ddns.net:3000/' + $(event.target).data('href'),
+            url: currentComand,
         }).done(function (data) {
             $result.text(JSON.stringify(data));
+            helper();
         }).fail(function () {
+            isButPressed = false;
             $result.text("error");
         });
-    });	
+    });
+
+    $('.js-button').on(ENDEVENTTYPE, function(event) {
+        event.preventDefault();
+        isButPressed = false;
+    });
+
   </script>
 </html>
