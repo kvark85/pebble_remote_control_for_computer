@@ -67,11 +67,11 @@
     let isButPressed = false;
         currentComand = '';
 
-    let helper = function() {
+    let helper = () => {
         if(isButPressed) {
-            setTimeout(function() {
+            setTimeout(() => {
                 if (isButPressed) {
-                    $.ajax({url: currentComand}).done(function (data) {
+                    $.ajax({url: currentComand}).done(() => {
                         helper();
                     });
                 }
@@ -79,24 +79,24 @@
         }
     }
 
-    $('.js-button').on(STARTEVENTTYPE, function(event) {
+    $('.js-button').on(STARTEVENTTYPE, (event) => {
         event.preventDefault();
         const $result = $('#result');
         isButPressed = true;
-        currentComand = 'http://simplenotes.ddns.net:3000/' + $(event.target).data('href');
+        currentComand = `http://simplenotes.ddns.net:3000/${$(event.target).data('href')}`;
 
         $.ajax({ cache: false,
             url: currentComand,
-        }).done(function (data) {
+        }).done((data) => {
             $result.text(JSON.stringify(data));
             helper();
-        }).fail(function () {
+        }).fail(() => {
             isButPressed = false;
             $result.text("error");
         });
     });
 
-    $('.js-button').on(ENDEVENTTYPE, function(event) {
+    $('.js-button').on(ENDEVENTTYPE, (event) => {
         event.preventDefault();
         isButPressed = false;
     });
