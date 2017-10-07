@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'/>
+  <title>Control</title>
+  <link rel="stylesheet" href="/css/semantic.min.css">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h1>Control</h1>
+
+  <div class="ui grid">
+    <div class="three column row">
+      <div class="column">
+        <button class="ui labeled icon button gm-full-width js-button" data-href="control/left">
+          <i class="fast backward icon"></i>Left
+        </button>
+      </div>
+
+      <div class="column">
+        <button class="ui labeled icon button gm-full-width js-button" data-href="control/audio_pause">
+          <i class="pause icon"></i> Pause
+        </button>
+      </div>
+
+      <div class="column">
+        <button class="ui right labeled icon button gm-full-width js-button" data-href="control/right">
+          <i class="fast forward icon"></i> Right
+        </button>
+      </div>
+    </div>
+
+    <div class="three column row">
+      <div class="column">
+        <button class="ui labeled icon button gm-full-width js-button" data-href="volume/audio_vol_down">
+          <i class="volume down icon"></i>Vol-
+        </button>
+      </div>
+
+      <div class="column">
+        <button class="ui labeled icon button gm-full-width js-button" data-href="volume/audio_mute">
+          <i class="volume off icon"></i> Mute
+        </button>
+      </div>
+
+      <div class="column">
+        <button class="ui right labeled icon button gm-full-width js-button" data-href="volume/audio_vol_up">
+          <i class="volume up icon"></i> Vol+
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div id="result"></div>
+</body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    $('.js-button').click(function(event) {
+        const $result = $('#result');
+        event.preventDefault();
+
+        $.ajax({ cache: false,
+            url: 'http://simplenotes.ddns.net:3000/' + $(event.target).data('href'),
+        }).done(function (data) {
+            $result.text(JSON.stringify(data));
+        }).fail(function () {
+            $result.text("error");
+        });
+    });	
+  </script>
+</html>
