@@ -1,20 +1,31 @@
 #include "pebble.h"
 
-#define NUM_MENU_SECTIONS 2
+#define NUM_MENU_SECTIONS 3
 #define NUM_FIRST_MENU_ITEMS 3
 #define NUM_SECOND_MENU_ITEMS 3
+#define NUM_THIRD_MENU_ITEMS 2
 
 static Window *s_main_window;
 static MenuLayer *s_menu_layer;
-static GBitmap *s_menu_icons_left, *s_menu_icons_right, *s_menu_icons_pause, *s_menu_icons_vol_up, *s_menu_icons_vol_down, *s_menu_icons_vol_mute;
+
+static GBitmap *s_menu_icons_audio_prev;
+static GBitmap *s_menu_icons_audio_next;
+static GBitmap *s_menu_icons_pause;
+static GBitmap *s_menu_icons_vol_up;
+static GBitmap *s_menu_icons_vol_down;
+static GBitmap *s_menu_icons_vol_mute;
+static GBitmap *s_menu_icons_left;
+static GBitmap *s_menu_icons_right;
 static GBitmap *s_background_bitmap;
 
-static char *control_lef_str = "control/left";
-static char *control_right_str = "control/right";
+static char *control_audio_prev_str = "control/audio_prev";
+static char *control_audio_next_str = "control/audio_next";
 static char *control_audio_pause_str = "control/audio_pause";
 static char *vol_up_str = "volume/audio_vol_up";
 static char *vol_down_str = "volume/audio_vol_down";
 static char *vol_mute_str = "volume/audio_mute";
+static char *control_left_str = "control/left";
+static char *control_right_str = "control/right";
 
 
 // ******************** ajax callback END ******************** //
@@ -56,9 +67,9 @@ static void sendCommand (char *data) {
   static const uint32_t SOME_STRING_KEY = 0xabbababe; // key
   const uint32_t size = dict_calc_buffer_size((uint8_t)1, strlen(data) + 1);
   uint8_t buffer[size]; // Stack-allocated buffer in which to create the Dictionary
-  
+
   APP_LOG(APP_LOG_LEVEL_ERROR, "Send request");
-  
+
   DictionaryIterator *iter;
   app_message_outbox_begin(&iter); // Begin dictionary
   dict_write_cstring(iter, SOME_STRING_KEY, data); // Add a key-value pair
@@ -75,6 +86,8 @@ static uint16_t menu_get_num_rows_callback(MenuLayer *menu_layer, uint16_t secti
       return NUM_FIRST_MENU_ITEMS;
     case 1:
       return NUM_SECOND_MENU_ITEMS;
+    case 2:
+      return NUM_THIRD_MENU_ITEMS;
     default:
       return 0;
   }
@@ -88,12 +101,13 @@ static void menu_draw_header_callback(GContext* ctx, const Layer *cell_layer, ui
   // Determine which section we're working with
   switch (section_index) {
     case 0:
-        // Draw title text in the section header
-        menu_cell_basic_header_draw(ctx, cell_layer, "Control");
+        menu_cell_basic_header_draw(ctx, cell_layer, "Control"); // Draw title text in the section header
       break;
     case 1:
-        // Draw title text in the section header
-        menu_cell_basic_header_draw(ctx, cell_layer, "Volume");
+        menu_cell_basic_header_draw(ctx, cell_layer, "Volume"); // Draw title text in the section header
+      break;
+    case 2:
+        menu_cell_basic_header_draw(ctx, cell_layer, "Other button"); // Draw title text in the section header
       break;
   }
 }
@@ -105,12 +119,12 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
       // Use the row to specify which item we'll draw
       switch (cell_index->row) {
         case 0:
-          menu_cell_basic_draw(ctx, cell_layer, "Left", "Button \"left\"", s_menu_icons_left); // This is a basic menu item with a title and subtitle
+          menu_cell_basic_draw(ctx, cell_layer, "Prev", "Button \"prev\"", s_menu_icons_audio_prev); // This is a basic menu item with a title and subtitle
           break;
         case 1:
-          menu_cell_basic_draw(ctx, cell_layer, "Right", "Button \"right\"", s_menu_icons_right); // This is a basic menu item with a title and subtitle
+          menu_cell_basic_draw(ctx, cell_layer, "Next", "Button \"next\"", s_menu_icons_audio_next); // This is a basic menu item with a title and subtitle
           break;
-        case 2: 
+        case 2:
           menu_cell_basic_draw(ctx, cell_layer, "Pause", "Button \"pause\"", s_menu_icons_pause); // This is a basic menu item with a title and subtitle
           break;
       }
@@ -123,10 +137,21 @@ static void menu_draw_row_callback(GContext* ctx, const Layer *cell_layer, MenuI
         case 1:
           menu_cell_basic_draw(ctx, cell_layer, "Volume Down", "Button \"vol_down\"", s_menu_icons_vol_down); // This is a basic menu item with a title and subtitle
           break;
-        case 2: 
+        case 2:
           menu_cell_basic_draw(ctx, cell_layer, "Volume Mute", "Button \"vol_mute\"", s_menu_icons_vol_mute); // This is a basic menu item with a title and subtitle
           break;
       }
+      break;
+    case 2:
+      switch (cell_index->row) {
+        case 0:
+          menu_cell_basic_draw(ctx, cell_layer, "Left", "Button \"left\"", s_menu_icons_left); // This is a basic menu item with a title and subtitle
+          break;
+        case 1:
+          menu_cell_basic_draw(ctx, cell_layer, "Right", "Button \"right\"", s_menu_icons_right); // This is a basic menu item with a title and subtitle
+          break;
+      }
+      break;
   }
 }
 
@@ -137,10 +162,10 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
       // Use the row to specify which item we'll draw
       switch (cell_index->row) {
         case 0:
-          sendCommand(control_lef_str);
+          sendCommand(control_audio_prev_str);
           break;
         case 1:
-          sendCommand(control_right_str);
+          sendCommand(control_audio_next_str);
           break;
         case 2:
           sendCommand(control_audio_pause_str);
@@ -159,11 +184,20 @@ static void menu_select_callback(MenuLayer *menu_layer, MenuIndex *cell_index, v
           sendCommand(vol_mute_str);
           break;
       }
+    case 2:
+      switch (cell_index->row) {
+        case 0:
+          sendCommand(control_left_str);
+          break;
+        case 1:
+          sendCommand(control_right_str);
+          break;
+      }
   }
 }
 
-#ifdef PBL_ROUND 
-static int16_t get_cell_height_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context) { 
+#ifdef PBL_ROUND
+static int16_t get_cell_height_callback(MenuLayer *menu_layer, MenuIndex *cell_index, void *callback_context) {
   if (menu_layer_is_index_selected(menu_layer, cell_index)) {
     switch (cell_index->row) {
       case 0:
@@ -180,12 +214,14 @@ static int16_t get_cell_height_callback(MenuLayer *menu_layer, MenuIndex *cell_i
 
 static void main_window_load(Window *window) {
   // Here we load the bitmap assets
-  s_menu_icons_left = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_LEFT);
-  s_menu_icons_right = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_RIGHT);
+  s_menu_icons_audio_prev = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_AUDIO_PREV);
+  s_menu_icons_audio_next = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_AUDIO_NEXT);
   s_menu_icons_pause = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_PAUSE);
   s_menu_icons_vol_up = gbitmap_create_with_resource(RESOURCE_ID_VOL_UP);
   s_menu_icons_vol_down = gbitmap_create_with_resource(RESOURCE_ID_VOL_DOWN);
   s_menu_icons_vol_mute = gbitmap_create_with_resource(RESOURCE_ID_VOL_MUTE);
+  s_menu_icons_left = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_LEFT);
+  s_menu_icons_right = gbitmap_create_with_resource(RESOURCE_ID_CONTROL_RIGHT);
 
   // Now we prepare to initialize the menu layer
   Layer *window_layer = window_get_root_layer(window);
@@ -214,12 +250,14 @@ static void main_window_unload(Window *window) {
   menu_layer_destroy(s_menu_layer);
 
   // Cleanup the menu icons
-  gbitmap_destroy(s_menu_icons_left);
-  gbitmap_destroy(s_menu_icons_right);
+  gbitmap_destroy(s_menu_icons_audio_prev);
+  gbitmap_destroy(s_menu_icons_audio_next);
   gbitmap_destroy(s_menu_icons_pause);
   gbitmap_destroy(s_menu_icons_vol_up);
   gbitmap_destroy(s_menu_icons_vol_down);
   gbitmap_destroy(s_menu_icons_vol_mute);
+  gbitmap_destroy(s_menu_icons_left);
+  gbitmap_destroy(s_menu_icons_right);
 }
 
 static void init() {
