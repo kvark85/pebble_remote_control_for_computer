@@ -1,4 +1,4 @@
-var url = 'http://simplenotes.ddns.net:3000/';
+var url = 'http://simplenotes.ddns.net:3033/';
 
 var xhrRequest = function (url, type, callback) {
   var xhr = new XMLHttpRequest();
