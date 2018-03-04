@@ -14,6 +14,18 @@
         "resources": {
             "media": [
                 {
+                    "file": "images/control-audio-next.png",
+                    "name": "CONTROL_AUDIO_NEXT",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/control-audio-prev.png",
+                    "name": "CONTROL_AUDIO_PREV",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/menu_image.png",
                     "menuIcon": true,
                     "name": "MENU_IMAGE",
