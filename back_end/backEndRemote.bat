@@ -36,5 +36,5 @@ cscript //nologo "!vbs!"&del "!vbs!"&goto :eof
 ::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 :: Do your elevated stuff here...
 
-cd c:\ddd\pebble_rembble_control_for_computer\back end (for computer)
+cd c:\ddd\pebble_rembble_control_for_computer\back_end
 node backEndRemote.js
