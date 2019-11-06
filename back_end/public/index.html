@@ -15,19 +15,19 @@
     <div class="three column row">
         <div class="column">
             <button class="ui labeled icon button gm-full-width js-button" data-href="control/audio_prev">
-                <i class="fast backward icon"></i> Prev
+                <i class="fast backward icon"></i><span>Prev</span>
             </button>
         </div>
 
         <div class="column">
             <button class="ui labeled icon button gm-full-width js-button" data-href="control/audio_pause">
-                <i class="pause icon"></i> Pause
+                <i class="pause icon"></i><span>Pause</span>
             </button>
         </div>
 
         <div class="column">
             <button class="ui right labeled icon button gm-full-width js-button" data-href="control/audio_next">
-                <i class="fast forward icon"></i> Next
+                <i class="fast forward icon"></i><span>Next</span>
             </button>
         </div>
     </div>
@@ -35,13 +35,13 @@
     <div class="two column row">
         <div class="column">
             <button class="ui labeled icon button gm-full-width js-button" data-href="control/left">
-                <i class="arrow left icon"></i>Left
+                <i class="arrow left icon"></i><span>Left</span>
             </button>
         </div>
 
         <div class="column">
             <button class="ui right labeled icon button gm-full-width js-button" data-href="control/right">
-                <i class="arrow right icon"></i> Right
+                <i class="arrow right icon"></i><span>Right</span>
             </button>
         </div>
     </div>
@@ -49,25 +49,24 @@
     <div class="ui grid">
         <div class="eight wide column"></div>
         <div class="eight wide column"></div>
-
     </div>
 
     <div class="three column row">
         <div class="column">
             <button class="ui labeled icon button gm-full-width js-button" data-href="volume/audio_vol_down">
-                <i class="volume down icon"></i>Vol-
+                <i class="volume down icon"></i><span>Vol-</span>
             </button>
         </div>
 
         <div class="column">
             <button class="ui labeled icon button gm-full-width js-button" data-href="volume/audio_mute">
-                <i class="volume off icon"></i> Mute
+                <i class="volume off icon"></i><span>Mute</span>
             </button>
         </div>
 
         <div class="column">
             <button class="ui right labeled icon button gm-full-width js-button" data-href="volume/audio_vol_up">
-                <i class="volume up icon"></i> Vol+
+                <i class="volume up icon"></i><span>Vol+</span>
             </button>
         </div>
     </div>
@@ -101,8 +100,10 @@
     $jsButtons.on(STARTEVENTTYPE, (event) => {
         event.preventDefault();
         const $result = $('#result');
+        const dataHref = $(event.target).parent().data('href');
+
         isButPressed = true;
-        currentComand = `http://192.168.1.2:3033/${$(event.target).data('href')}`;
+        currentComand = `http://192.168.1.2:3033/${dataHref}`;
 
         $.ajax({
             cache: false,
