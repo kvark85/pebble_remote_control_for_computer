@@ -23,6 +23,6 @@
   "homepage": "https://github.com/kvark85/pebble_rembble_control_for_computer#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "robotjs": "^0.5.1"
+    "robotjs": "^0.6.0"
   }
 }
