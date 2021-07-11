@@ -2,7 +2,7 @@
 
 Remote control of computer from pebble smart watch.
 
-[Demo of pebble as remote control](https://youtu.be/Y7ooxm9lhKY)
+[![Demo of pebble as remote control](https://img.youtube.com/vi/Y7ooxm9lhKY/0.jpg)](https://www.youtube.com/watch?v=Y7ooxm9lhKY)
 
 In addition, there is a web interface that allows using the browser as a remote control.
 
