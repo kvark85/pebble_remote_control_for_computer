@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Remote control configurator</title>
+    <link rel="stylesheet" href="public/css/styles.css">
+  </head>
+  <body>
+    <div class="content">
+      <h2>Remote control configuration</h2>
+      <label for="portInput">Port</label>
+      <input id="portInput" type="number" maxlength="5" placeholder="port">
+      <button id="applyButton">Apply</button>
+      <div id="info"></div>
+    </div>
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>

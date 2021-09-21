@@ -1,26 +1,24 @@
 {
-  "name": "pebble_rembble_control_for_computer",
+  "name": "remote_control_back_end",
   "version": "1.0.0",
-  "description": "Pebble as a control panel for the computer. Back-end node, express.",
-  "main": "backEndRemote.js",
+  "description": "A minimal Electron application",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kvark85/pebble_rembble_control_for_computer.git"
-  },
+  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
-    "pebble",
-    "remote",
-    "computer"
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
   ],
-  "author": "kvark85",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kvark85/pebble_rembble_control_for_computer/issues"
+  "author": "Andrii Bespalyi",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^13.2.1"
   },
-  "homepage": "https://github.com/kvark85/pebble_rembble_control_for_computer#readme",
   "dependencies": {
     "express": "^4.17.1",
     "robotjs": "^0.6.0"

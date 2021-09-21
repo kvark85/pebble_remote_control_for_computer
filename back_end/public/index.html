@@ -106,7 +106,7 @@
         const targetHref = $(event.target).data('href');
         const targetParentHref = $(event.target).parent().data('href');
         isButPressed = true;
-        currentComand = `http://192.168.1.2:3033/${targetHref || targetParentHref}`;
+        currentComand = `${window.location.href}${targetHref || targetParentHref}`;
 
         $.ajax({
             cache: false,
@@ -124,6 +124,5 @@
         event.preventDefault();
         isButPressed = false;
     });
-
 </script>
 </html>

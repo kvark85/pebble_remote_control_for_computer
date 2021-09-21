@@ -1,10 +1,20 @@
-body {
-    max-width: 500px;
-    text-align: center;
-    margin: 0 auto;
-    padding: 20px 5px 0 5px;
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.gm-full-width {
-	width: 100%;
+body {
+    text-align: center;
+    color: rgb(33, 37, 41);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    padding-bottom: 58px;
 }
