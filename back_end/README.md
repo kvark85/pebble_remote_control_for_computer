@@ -24,7 +24,7 @@ cd ./back_end
 # Install dependencies
 npm install
 # Rebuild
-npm rebuild --runtime=electron --target=13.2.1 --disturl=https://atom.io/download/atom-shell --abi=48
+npm rebuild --runtime=electron --target=14.0.1 --disturl=https://atom.io/download/atom-shell --abi=48
 # Run the app
 npm start
 ```

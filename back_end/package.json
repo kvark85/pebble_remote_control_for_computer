@@ -17,9 +17,10 @@
   "author": "Andrii Bespalyi",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^13.2.1"
+    "electron": "^14.0.1"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.1",
     "express": "^4.17.1",
     "robotjs": "^0.6.0"
   }

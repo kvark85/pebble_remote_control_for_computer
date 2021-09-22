@@ -1,0 +1,5 @@
+# Integrated Development Environments
+.idea
+
+# Dependency directories
+back_end/node_modules

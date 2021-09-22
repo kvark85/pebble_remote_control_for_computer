@@ -4,7 +4,7 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
-const remote = require('electron').remote;
+const remote = require('@electron/remote');
 const main = remote.require('./main.js');
 
 const portInput = document.getElementById('portInput');

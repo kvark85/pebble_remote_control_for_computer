@@ -9,6 +9,7 @@ const express = require('express');
 const robot = require("robotjs");
 const expressApp = express();
 const iconPath = path.join(__dirname, '/images/menu_image.png');
+require('@electron/remote/main').initialize();
 
 const DEFAULT_PORT = 3033;
 let expressServer;
@@ -100,6 +101,7 @@ app.on('window-all-closed', function () {
 })
 
 const startServer = (newPort) => {
+  // TODO: add notification if port is busy
   expressServer = expressApp.listen(newPort, () => {
     console.log(`New server created, listening on port ${newPort}!`);
   });
