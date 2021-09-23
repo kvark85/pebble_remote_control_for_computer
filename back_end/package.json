@@ -1,23 +1,16 @@
 {
   "name": "remote_control_back_end",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Server for remote control of computer",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
   "author": "Andrii Bespalyi",
-  "license": "CC0-1.0",
+  "license": "ISC",
   "devDependencies": {
-    "electron": "^14.0.1"
+    "electron": "^15.0.0"
   },
   "dependencies": {
     "@electron/remote": "^2.0.1",
