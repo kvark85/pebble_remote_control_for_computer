@@ -2,4 +2,7 @@
 .idea
 
 # Dependency directories
-back_end/node_modules
+node_modules
+
+# Build directories
+build

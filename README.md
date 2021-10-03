@@ -4,6 +4,6 @@ Remote control of computer from pebble smart watch.
 
 [![Demo of pebble as remote control](https://img.youtube.com/vi/Y7ooxm9lhKY/0.jpg)](https://www.youtube.com/watch?v=Y7ooxm9lhKY)
 
-In addition, there is a web interface that allows using the browser as a remote control.
+For work on the computer should be working [Remote control of computer](https://github.com/kvark85/remote_control_for_computer)
 
-<img src="https://github.com/kvark85/pebble_remote_control_for_computer/raw/master/images/web_interface.jpg" width="250" >
+(you can unpack and use already built [application (Remote control-win32-x64.zip)](https://github.com/kvark85/remote_control_for_computer/raw/main/Remote%20control-win32-x64.zip))
